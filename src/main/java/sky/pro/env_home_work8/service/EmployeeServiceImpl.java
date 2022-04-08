@@ -13,10 +13,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public EmployeeServiceImpl() {
         this.employees = new HashMap<>();
-        employees.put(getNextId(), new Employee("Иван", "Иванов"));
-        employees.put(getNextId(), new Employee("Петр", "Петров"));
-        employees.put(getNextId(), new Employee("Владимир", "Иванченко"));
-        employees.put(getNextId(), new Employee("Степан", "Казанцев"));
+        employees.put(getNextId(), new Employee("Иван", 5, 10000));
+        employees.put(getNextId(), new Employee("Петр", 5, 50000));
+        employees.put(getNextId(), new Employee("Владимир", 2, 45000));
+        employees.put(getNextId(), new Employee("Степан", 2, 42000));
     }
 
     private Integer getNextId() {
