@@ -1,16 +1,15 @@
 package sky.pro.env_home_work8.service;
+
 import org.springframework.stereotype.Service;
 import sky.pro.env_home_work8.domain.Employee;
 import sky.pro.env_home_work8.exception.EmployeeNotFoundException;
-import sky.pro.env_home_work8.service.EmployeeService;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final Map<Integer, Employee> employees;
-    Integer nextId = 0;
+    private Integer nextId = 0;
 
     public EmployeeServiceImpl() {
         this.employees = new HashMap<>();
@@ -32,21 +31,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public String getEmployee(Integer number) {
-        Employee employee;
-        if (number >= employees.size()) {
-            throw new EmployeeNotFoundException("Ошибка, номер сотрудника больше, чем сотрудников");
+    public Employee getEmployee(Integer number) {
+        if (employees.containsKey(number)) {
+            return employees.get(number);
         }
-        employee = employees.get(number);
-        String EmployeeDescription = ""
-                + employee.getName() + " "
-                + employee.getFamily();
-        return EmployeeDescription;
+        throw new EmployeeNotFoundException("Под данным номером нет сотрудника");
     }
 
     @Override
-    public void addEmployee(Employee employee) {
+    public String addEmployee(Employee employee) {
+        if (employees.containsValue(employee)) {
+            return "Данный сотрудник есть в базе данных";
+        }
         employees.put(getNextId(), employee);
+        return employee.toString();
     }
 
     @Override

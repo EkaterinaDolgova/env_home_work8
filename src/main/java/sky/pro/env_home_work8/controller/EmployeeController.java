@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sky.pro.env_home_work8.domain.Employee;
 import sky.pro.env_home_work8.service.EmployeeService;
-
 import java.util.Map;
 
 @RestController
@@ -22,15 +21,14 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/employee")
-    public String employeeS(@RequestParam("number") Integer number) {
+    public Employee employeeS(@RequestParam("number") Integer number) {
         return employeeService.getEmployee(number);
     }
 
     @GetMapping(path = "/employee/add")
     public String employeeAdd(@RequestParam String firstname, @RequestParam String lastname) {
         Employee employee = new Employee(firstname, lastname);
-        employeeService.addEmployee(employee);
-        return "Сотрудник добавлен";
+        return employeeService.addEmployee(employee);
     }
 
     @GetMapping(path = "/employee/search")
@@ -41,7 +39,6 @@ public class EmployeeController {
 
     @GetMapping(path = "/employee/delete")
     public String employeeDel(@RequestParam Integer id) {
-        // Employee employee = new Employee(id);
         return employeeService.deleteEmployee(id);
     }
 }

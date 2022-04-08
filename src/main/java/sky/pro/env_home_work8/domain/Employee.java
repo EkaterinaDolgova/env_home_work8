@@ -16,7 +16,7 @@ public class Employee {
     }
 
     public String getFamily() {
-        return family;
+        return this.family;
     }
 
 
