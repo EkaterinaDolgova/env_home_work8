@@ -3,7 +3,7 @@ package sky.pro.env_home_work8.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import sky.pro.env_home_work8.domain.Department;
+import sky.pro.env_home_work8.domain.Employee;
 import sky.pro.env_home_work8.service.DepartmentService;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/department/all")
-    public List<Department> printList() {
+    public List<Employee> printList() {
         return departmentService.getAll();
     }
 
@@ -37,7 +37,7 @@ public class DepartmentController {
     }
 
     @GetMapping(path = "/department/all/d")
-    public List<Department> departmentAll(@RequestParam Integer department) {
+    public List<Employee> departmentAll(@RequestParam Integer department) {
         return departmentService.getAllDepartment(department);
     }
 }

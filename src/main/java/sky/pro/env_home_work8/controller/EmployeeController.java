@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sky.pro.env_home_work8.domain.Employee;
 import sky.pro.env_home_work8.service.EmployeeService;
-import java.util.Map;
+
+import java.util.List;
 
 @RestController
 public class EmployeeController {
@@ -16,7 +17,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/list")
-    public Map<Integer, Employee> printEmployeeList() {
+    public List<Employee> printEmployeeList() {
         return employeeService.getEmployeeList();
     }
 
