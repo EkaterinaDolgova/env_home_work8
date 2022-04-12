@@ -68,43 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeNotFoundException("Ошибка, сотрудника не найден");
     }
 
-    @Override
-    public String amount(Integer department) {
-        int costAmount = 0;
-        double averageSalary = 0;
-        final Integer sum = employees.values().stream()
-                .filter(e -> e.getDepartment() == department).mapToInt(e -> e.getSalary()).sum();
-        final Integer count = Math.toIntExact(employees.values().stream()
-                .filter(e -> e.getDepartment() == department).count());
-        costAmount = sum * 30;
-        averageSalary = sum / count;
-        return "Сумма затрат на зарплаты в месяц: " + costAmount +
-                "р. : Среднее значение зарплат: " + averageSalary + "р. в отделе № " + department;
+    public Collection<Employee> findAll() {
+        return Collections.unmodifiableCollection(employees.values());
     }
-
-    @Override
-    public String maxSalary(Integer department) {
-        final Optional<Employee> maxSalary = employees.values().stream()
-                .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparing(Employee::getSalary));
-        return "Сотрудник с максимальной зарплатой: " + maxSalary + "р.";
-    }
-
-    @Override
-    public String minSalary(Integer department) {
-        final Optional<Employee> minSalary = employees.values().stream()
-                .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparing(Employee::getSalary));
-        return "Сотрудник с минимальной зарплатой: " + minSalary + "р.";
-    }
-
-    @Override
-    public List<Employee> getAllDepartment(Integer department) {
-        final List<Employee> allDepartments = employees.values().stream()
-                .filter(e -> e.getDepartment() == department).
-                collect(Collectors.toList());
-        return allDepartments;
-    }
-
-
 }
