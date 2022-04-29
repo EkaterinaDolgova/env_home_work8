@@ -3,6 +3,7 @@ package sky.pro.env_home_work8.service;
 import sky.pro.env_home_work8.domain.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface DepartmentService {
@@ -11,9 +12,9 @@ public interface DepartmentService {
 
     String amount(Integer department);
 
-    String maxSalary(Integer department);
+    Integer maxSalary(Integer department);
 
-    String minSalary(Integer department);
+    Integer minSalary(Integer department);
 
     List<Employee> getAllDepartment(Integer department);
 }

@@ -8,6 +8,7 @@ import sky.pro.env_home_work8.domain.Employee;
 import sky.pro.env_home_work8.service.DepartmentService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class DepartmentController {
@@ -28,12 +29,12 @@ public class DepartmentController {
     }
 
     @GetMapping(path = "/department/max-salary")
-    public String departmentMaxSalary(@RequestParam Integer department) {
+    public Integer departmentMaxSalary(@RequestParam Integer department) {
         return departmentService.maxSalary(department);
     }
 
     @GetMapping(path = "/department/min-salary")
-    public String departmentMinSalary(@RequestParam Integer department) {
+    public Integer departmentMinSalary(@RequestParam Integer department) {
         return departmentService.minSalary(department);
     }
 

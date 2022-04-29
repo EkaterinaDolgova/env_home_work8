@@ -2,6 +2,7 @@ package sky.pro.env_home_work8.service;
 
 import org.springframework.stereotype.Service;
 import sky.pro.env_home_work8.domain.Employee;
+import sky.pro.env_home_work8.exception.EmployeeNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    private final EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     public DepartmentServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -22,6 +23,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public String amount(Integer department) {
+        if (department == null|| department==0){
+            throw new EmployeeNotFoundException("Номер отделения пустой");
+        }
         int costAmount = 0;
         double averageSalary = 0;
         final Integer sum = employeeService.findAll().stream()
@@ -30,24 +34,30 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .filter(e -> e.getDepartment() == department).count());
         costAmount = sum * 30;
         averageSalary = sum / count;
-        return "Сумма затрат на зарплаты в месяц: " + costAmount +
-                "р. : Среднее значение зарплат: " + averageSalary + "р. в отделе № " + department;
+        return costAmount +
+                "," + averageSalary;
     }
 
     @Override
-    public String maxSalary(Integer department) {
-        final Optional<Employee> maxSalary = employeeService.findAll().stream()
+    public Integer maxSalary(Integer department) {
+        if (department == null|| department==0){
+            throw new EmployeeNotFoundException("Номер отделения пустой");
+        }
+        final Integer maxSalary = employeeService.findAll().stream()
                 .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparing(Employee::getSalary));
-        return "Сотрудник с максимальной зарплатой: " + maxSalary + "р.";
+                .max(Comparator.comparing(Employee::getSalary)).get().getSalary();
+        return maxSalary;
     }
 
     @Override
-    public String minSalary(Integer department) {
-        final Optional<Employee> minSalary = employeeService.findAll().stream()
+    public Integer minSalary(Integer department) {
+        if (department == null|| department==0){
+            throw new EmployeeNotFoundException("Номер отделения пустой");
+        }
+        final Integer minSalary = employeeService.findAll().stream()
                 .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparing(Employee::getSalary));
-        return "Сотрудник с минимальной зарплатой: " + minSalary + "р.";
+                .min(Comparator.comparing(Employee::getSalary)).get().getSalary();
+        return  minSalary;
     }
 
     @Override

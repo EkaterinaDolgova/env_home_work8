@@ -31,39 +31,31 @@ public class Employee {
         return this.family;
     }
 
-    public Integer getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Integer department) {
-        this.department = department;
-    }
-
+    public Integer getDepartment()
+        {
+            return this.department;
+        }
     public Integer getSalary() {
-        return salary;
+            return this.salary;
+        }
+
+        @Override
+        public boolean equals (Object o){
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Employee employee = (Employee) o;
+            return name.equals(employee.name) && family.equals(employee.family);
+        }
+
+        @Override
+        public int hashCode () {
+            return Objects.hash(name, family);
+        }
+
+        @Override
+        public String toString () {
+            return "Имя: " + this.name + " Фамилия: " + this.family + " Отдел: " + this.department + " Зарплата: " + this.salary;
+        }
+
+
     }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return name.equals(employee.name) && family.equals(employee.family);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, family);
-    }
-
-    @Override
-    public String toString() {
-        return "Имя: " + this.name + " Фамилия: " + this.family+ " Отдел: " + this.department + " Зарплата: " + this.salary;
-    }
-
-
-}

@@ -1,23 +1,33 @@
 package sky.pro.env_home_work8;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
+import sky.pro.env_home_work8.domain.Employee;
 import sky.pro.env_home_work8.service.EmployeeServiceImpl;
 
-import java.util.stream.Stream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmployeeServiceImplTest {
     private final EmployeeServiceImpl out = new EmployeeServiceImpl();
-    private static Stream<Arguments> argumentsForEmployeeTests() {
-        return Stream.of(
-                Arguments.of("Иван", "Иванов", 5, 50000),
-                Arguments.of("Иван1", "Иванов1", 5, 55000)
-        );
+
+    @Test
+    public void employeeTestAdd() {
+        Employee employee = new Employee("Иванc", "Ивановc", 5, 100000);
+        out.addEmployee(employee);
+        assertEquals(5, out.getEmployeeList().size());
     }
-  /*  @ParameterizedTest
-    @MethodSource("argumentsForEmployeeTests")
-    public void paramTestPlus(int num1, int num2, int expected) {
-        assertEquals(expected, out.calculatorPlus(num1,num2));
-    }*/
+
+    @Test
+    public void employeeTestDelete() {
+        out.deleteEmployee(1);
+        assertEquals(3, out.getEmployeeList().size());
+    }
+
+    @Test
+    public void employeeTestSearch() {
+        Employee employee = new Employee("Иван", "Иванов", 5, 50000);
+        assertEquals(1, out.searchEmployee(employee));
+    }
 }
+
+
+
